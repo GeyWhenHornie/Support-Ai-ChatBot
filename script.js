@@ -16,6 +16,7 @@ let user = {
   },
 };
 
+// Function to generate AI response from the API
 async function generateResponse(aiChatBox) {
   let text = aiChatBox.querySelector(".ai-chat-area");
   let RequestOption = {
@@ -39,15 +40,17 @@ async function generateResponse(aiChatBox) {
     let response = await fetch(Api_Url, RequestOption);
     let data = await response.json();
 
-    // Parse the response for AI content
-    let apiResponse =
-      data.candidates[0]?.content?.parts?.[0]?.text ||
-      "Oops, something went wrong 🫠!";
-    apiResponse = apiResponse.replace(/\*\*(.*?)\*\*/g, "$1").trim(); // Clean up Markdown-like bold text
-    text.innerHTML = apiResponse;
+    // Check if the API response is valid
+    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+      let apiResponse = data.candidates[0].content.parts[0].text;
+      apiResponse = apiResponse.replace(/\*\*(.*?)\*\*/g, "$1").trim(); // Clean up Markdown-like bold text
+      text.innerHTML = apiResponse;
+    } else {
+      throw new Error("Invalid response from API");
+    }
   } catch (error) {
     console.error("Error:", error);
-    text.innerHTML = "Sorry, couldn't process that 🫤. Wanna try again?";
+    text.innerHTML = `Sorry, couldn't process that 🫤. Please try again. Error: ${error.message}`;
   } finally {
     chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
     image.src = `img.svg`;
@@ -56,6 +59,7 @@ async function generateResponse(aiChatBox) {
   }
 }
 
+// Function to create the chat box element
 function createChatBox(html, classes) {
   let div = document.createElement("div");
   div.innerHTML = html;
@@ -63,6 +67,7 @@ function createChatBox(html, classes) {
   return div;
 }
 
+// Function to handle the user's message and display it
 function handlechatResponse(userMessage) {
   user.message = userMessage;
   let html = `<img src="user.png" alt="" id="userImage" width="8%">
@@ -91,6 +96,7 @@ ${
   }, 600);
 }
 
+// Add event listeners for input actions
 prompt.addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
     handlechatResponse(prompt.value);
@@ -100,9 +106,18 @@ prompt.addEventListener("keydown", (e) => {
 submitbtn.addEventListener("click", () => {
   handlechatResponse(prompt.value);
 });
+
+// File upload handling
 imageinput.addEventListener("change", () => {
   const file = imageinput.files[0];
   if (!file) return;
+
+  // Validate the file type
+  if (!file.type.startsWith("image/")) {
+    alert("Please upload a valid image file.");
+    return;
+  }
+
   let reader = new FileReader();
   reader.onload = (e) => {
     let base64string = e.target.result.split(",")[1];
@@ -117,6 +132,7 @@ imageinput.addEventListener("change", () => {
   reader.readAsDataURL(file);
 });
 
+// Trigger the file input when the image button is clicked
 imagebtn.addEventListener("click", () => {
   imagebtn.querySelector("input").click();
 });
