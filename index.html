@@ -45,5 +45,36 @@
     </div>
   
     <script src="script.js"></script>
+    <script>
+        document.getElementById('submit').addEventListener('click', function() {
+            const userMessage = document.getElementById('prompt').value;
+            if (userMessage) {
+                // Append User message
+                const chatBox = document.querySelector('.chat-box');
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.classList.add('message-container', 'user-message');
+                userMessageDiv.innerHTML = `
+                    <img src="user.png" class="message-avatar" alt="User Avatar">
+                    <div class="message-content">${userMessage}</div>
+                `;
+                chatBox.appendChild(userMessageDiv);
+                
+                // Simulate AI response
+                const aiMessageDiv = document.createElement('div');
+                aiMessageDiv.classList.add('message-container', 'ai-message');
+                aiMessageDiv.innerHTML = `
+                    <img src="ai.png" class="message-avatar" alt="AI Avatar">
+                    <div class="message-content">AI: ${userMessage}</div>
+                `;
+                chatBox.appendChild(aiMessageDiv);
+                
+                // Scroll to the bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Clear the input box
+                document.getElementById('prompt').value = '';
+            }
+        });
+    </script>
 </body>
 </html>
