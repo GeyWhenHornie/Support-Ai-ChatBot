@@ -9,64 +9,67 @@
 <body>
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
-                <!-- AI Chat message -->
-           
-                <!-- User Chat message -->
-                <div class="message user-message">
-                    <img src="user.png" alt="User" class="message-avatar">
-                    <div class="message-content">
-                        Yo, what's up?
-                    </div>
-                </div>
-                <!-- AI Chat message -->
-                <div class="message ai-message">
+            <div class="ai-message">
+                <div class="message-container">
                     <img src="ai.png" alt="AI" class="message-avatar">
-                    <div class="message-content">
-                        Nothing much
-                    </div>
+                    <div class="message-content">Wassup dawg?</div>
+                </div>
+            </div>
+            <div class="user-message">
+                <div class="message-container">
+                    <img src="user.png" alt="User" class="message-avatar">
+                    <div class="message-content">Yo what's up</div>
+                </div>
+            </div>
+            <div class="ai-message">
+                <div class="message-container">
+                    <img src="ai.png" alt="AI" class="message-avatar">
+                    <div class="message-content">Nothing much!</div>
                 </div>
             </div>
         </div>
-
-        <!-- Input and Send Message area -->
-<div class="prompt-area">
-        <input type="text" id="prompt" placeholder="Type your message...">
-        <button id="submit">
-            <img src="submit.svg" alt="Submit">
-        </button>
+        <div class="prompt-area">
+            <input type="text" id="messageInput" placeholder="Type a message...">
+            <button id="sendMessage">Send</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
 
     <script>
-        document.getElementById('submit').addEventListener('click', function() {
-            const userMessage = document.getElementById('prompt').value;
+        document.getElementById('sendMessage').addEventListener('click', function() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value;
 
-            if (userMessage.trim() !== '') {
-                // Add user message with bubble
+            if (messageText.trim() !== "") {
+                // Create the new user message
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('user-message');
+
+                const messageContainer = document.createElement('div');
+                messageContainer.classList.add('message-container');
+
+                const userAvatar = document.createElement('img');
+                userAvatar.src = "user.png";  // Change to actual user image source
+                userAvatar.classList.add('message-avatar');
+
+                const messageContent = document.createElement('div');
+                messageContent.classList.add('message-content');
+                messageContent.textContent = messageText;
+
+                messageContainer.appendChild(userAvatar);
+                messageContainer.appendChild(messageContent);
+                userMessage.appendChild(messageContainer);
+
+                // Append the message to the chat
                 const chatBox = document.getElementById('chatBox');
-                const userMessageDiv = document.createElement('div');
-                userMessageDiv.classList.add('message-container', 'user-message');
-                userMessageDiv.innerHTML = `
-                    <img src="user.png" class="message-avatar" alt="User Avatar">
-                    <div class="message-content">${userMessage}</div>
-                `;
-                chatBox.appendChild(userMessageDiv);
+                chatBox.appendChild(userMessage);
 
-                // Simulate AI response
-                const aiMessageDiv = document.createElement('div');
-                aiMessageDiv.classList.add('message-container', 'ai-message');
-                aiMessageDiv.innerHTML = `
-                    <img src="ai.png" class="message-avatar" alt="AI Avatar">
-                    <div class="message-content">AI: ${userMessage}</div>
-                `;
-                chatBox.appendChild(aiMessageDiv);
-
-                // Scroll to the bottom of the chat box
+                // Scroll to the bottom
                 chatBox.scrollTop = chatBox.scrollHeight;
 
-                // Clear the input box
-                document.getElementById('prompt').value = '';
+                // Clear the input field
+                messageInput.value = '';
             }
         });
     </script>
