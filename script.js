@@ -26,7 +26,7 @@ async function generateResponse(aiChatBox) {
         {
           parts: [
             {
-              text: `wassup dawg! my query: "${user.message}". answer me in genz slangs, always keeping it lit with vibes.`,
+              text: `wassup dawg! my query: "${user.message}". answer me in genz slangs with no emoji, always keeping it lit with vibes.`,
             },
             ...(user.file.data ? [{ inline_data: user.file }] : []),
           ],
