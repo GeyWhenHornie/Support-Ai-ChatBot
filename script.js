@@ -5,113 +5,101 @@ let imagebtn=document.querySelector("#image")
 let image=document.querySelector("#image img")
 let imageinput=document.querySelector("#image input")
 
-const Api_Url="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAhEeHNhBau8cLzrcvYslhis6VqSGyBhBk"
+const Api_Url = "YOUR_SECURE_BACKEND_API_URL"; // Secure your API calls
 
-let user={
-    message:null,
-    file:{
-        mime_type:null,
-        data: null
-    }
-}
- 
+let user = { 
+  message: null, 
+  file: { mime_type: null, data: null } 
+};
+
+// Gen Z Personality Context
+const personalityContext = `
+Hey! I'm your super chill Gen Z bot who loves to vibe with the coolest slangs. 
+I'll keep it light, funny, and trendy while answering your questions! 
+Feel free to ask anything, bestie.`;
+
 async function generateResponse(aiChatBox) {
+  const text = aiChatBox.querySelector(".ai-chat-area");
+  const queryWithContext = `${personalityContext}\nUser Query: ${user.message}`;
 
-let text=aiChatBox.querySelector(".ai-chat-area")
-    let RequestOption={
-        method:"POST",
-        headers:{'Content-Type' : 'application/json'},
-        body:JSON.stringify({
-            "contents":[
-                {"parts":[{text:user.message},(user.file.data?[{inline_data:user.file}]:[])
+  const requestBody = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
+            { text: queryWithContext },
+            ...(user.file.data ? [{ inline_data: user.file }] : []),
+          ],
+        },
+      ],
+    }),
+  };
 
-                ]
-            }]
-        })
-    }
-    try{
-        let response= await fetch(Api_Url,RequestOption)
-        let data=await response.json()
-       let apiResponse=data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g,"$1").trim()
-       text.innerHTML=apiResponse    
-    }
-    catch(error){
-        console.log(error);
-        
-    }
-    finally{
-        chatContainer.scrollTo({top:chatContainer.scrollHeight,behavior:"smooth"})
-        image.src=`img.svg`
-        image.classList.remove("choose")
-        user.file={}
-    }
+  try {
+    const response = await fetch(Api_Url, requestBody);
+    const data = await response.json();
+    const apiResponse = data.candidates[0].content.parts[0].text
+      .replace(/\*\*(.*?)\*\*/g, "$1") // Remove any extra markdown formatting
+      .trim();
+    text.innerHTML = apiResponse; // Update the AI chat response
+  } catch (error) {
+    console.error(error);
+    text.innerHTML = "Oops, something went wrong! Try again, bestie. 😅";
+  } finally {
+    resetFileUpload();
+    chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
+  }
 }
 
-
-
-function createChatBox(html,classes){
-    let div=document.createElement("div")
-    div.innerHTML=html
-    div.classList.add(classes)
-    return div
+function handleChatResponse(userMessage) {
+  if (!userMessage.trim() && !user.file.data) return; // Validate input
+  user.message = userMessage;
+  addUserMessageToChat(userMessage);
+  generateAIResponse();
 }
 
+function addUserMessageToChat(message) {
+  const html = `
+    <img src="user.png" alt="User" width="8%">
+    <div class="user-chat-area">
+      ${message}
+      ${user.file.data ? `<img src="data:${user.file.mime_type};base64,${user.file.data}" class="uploaded-img" />` : ""}
+    </div>`;
+  appendToChat(html, "user-chat-box");
+}
 
-function handlechatResponse(userMessage){
-    user.message=userMessage
-    let html=`<img src="user.png" alt="" id="userImage" width="8%">
-<div class="user-chat-area">
-${user.message}
-${user.file.data?`<img src="data:${user.file.mime_type};base64,${user.file.data}" class="chooseimg" />` : ""}
-</div>`
-prompt.value=""
-let userChatBox=createChatBox(html,"user-chat-box")
-chatContainer.appendChild(userChatBox)
-
-chatContainer.scrollTo({top:chatContainer.scrollHeight,behavior:"smooth"})
-
-setTimeout(()=>{
-let html=`<img src="ai.png" alt="" id="aiImage" width="10%">
+function generateAIResponse() {
+  const loadingHtml = `
+    <img src="ai.png" alt="AI" width="10%">
     <div class="ai-chat-area">
-    <img src="loading.webp" alt="" class="load" width="50px">
-    </div>`
-    let aiChatBox=createChatBox(html,"ai-chat-box")
-    chatContainer.appendChild(aiChatBox)
-    generateResponse(aiChatBox)
-
-},600)
-
+      <img src="loading.webp" alt="Loading" width="50px">
+    </div>`;
+  const aiChatBox = appendToChat(loadingHtml, "ai-chat-box");
+  generateResponse(aiChatBox);
 }
 
+function appendToChat(html, className) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  div.classList.add(className);
+  chatContainer.appendChild(div);
+  chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: "smooth" });
+  return div;
+}
 
-prompt.addEventListener("keydown",(e)=>{
-    if(e.key=="Enter"){
-       handlechatResponse(prompt.value)
+function resetFileUpload() {
+  image.src = "img.svg";
+  image.classList.remove("uploaded");
+  user.file = {};
+}
 
-    }
-})
+// Event Listeners
+prompt.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") handleChatResponse(prompt.value);
+});
 
-submitbtn.addEventListener("click",()=>{
-    handlechatResponse(prompt.value)
-})
-imageinput.addEventListener("change",()=>{
-    const file=imageinput.files[0]
-    if(!file) return
-    let reader=new FileReader()
-    reader.onload=(e)=>{
-       let base64string=e.target.result.split(",")[1]
-       user.file={
-        mime_type:file.type,
-        data: base64string
-    }
-    image.src=`data:${user.file.mime_type};base64,${user.file.data}`
-    image.classList.add("choose")
-    }
-    
-    reader.readAsDataURL(file)
-})
-
-
-imagebtn.addEventListener("click",()=>{
-    imagebtn.querySelector("input").click()
-})
+submitbtn.addEventListener("click", () => handleChatResponse(prompt.value));
+imageinput.addEventListener("change", handleFileUpload);
+imagebtn.addEventListener("click", () => imageinput.click());
