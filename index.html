@@ -9,30 +9,35 @@
 <body>
     <div class="chat-container">
         <div class="chat-box">
-            <div class="ai-chat-box">
-                <img src="ai.png" alt="AI" class="ai-image">
-                <div class="ai-chat-area">
-                    Wassup dawg?
+            <div class="message-box">
+                <!-- AI chat message -->
+                <div class="ai-chat-box">
+                    <img src="ai.png" alt="AI" class="ai-image">
+                    <div class="ai-chat-area">
+                        Wassup dawg?
+                    </div>
                 </div>
-            </div>
-            <!-- User chat example -->
-            <div class="user-chat-box">
-                <div class="user-chat-area">
-                    Yo, what's up?
+
+                <!-- User chat message -->
+                <div class="user-chat-box">
+                    <div class="user-chat-area">
+                        Yo, what's up?
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="prompt-area">
-        <input type="text" id="prompt" placeholder="Message...">
-        <button id="image">
-            <img src="img.svg" alt="">
-            <input type="file" accept="images/*" hidden>
-        </button>
-        <button id="submit">
-            <img src="submit.svg" alt="">
-        </button>
+        
+        <!-- Input area at the bottom -->
+        <div class="prompt-area">
+            <input type="text" id="prompt" placeholder="Message...">
+            <button id="image">
+                <img src="img.svg" alt="">
+                <input type="file" accept="images/*" hidden>
+            </button>
+            <button id="submit">
+                <img src="submit.svg" alt="">
+            </button>
+        </div>
     </div>
   
     <script src="script.js"></script>
