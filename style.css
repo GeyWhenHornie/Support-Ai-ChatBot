@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -33,15 +34,15 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto;
+    overflow-y: scroll;
+    padding-bottom: 20px; /* To ensure there's space for new messages */
+    scroll-behavior: smooth; /* Smooth scrolling when new messages come in */
 }
 
 .message-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    flex-grow: 1;
-    overflow-y: auto;
 }
 
 .message {
