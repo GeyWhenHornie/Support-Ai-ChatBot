@@ -1,172 +1,110 @@
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #4a90e2, #6f5eb0);
-    color: #333;
+    width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    background-color: #f4f4f4;
 }
 
+/* Chat Container */
 .chat-container {
-    width: 100%;
-    max-width: 600px;
-    height: 90%;
-    background-color: #f1f1f1;
-    border-radius: 20px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    height: 80%;
+    background-color: #3d6c80;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    overflow: hidden;
+    gap: 20px;
+    font-size: 18px;
+    overflow-y: auto;
 }
 
+/* Chat Box */
 .chat-box {
+    width: 100%;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: scroll;
-    padding-bottom: 20px; /* To ensure there's space for new messages */
-    scroll-behavior: smooth; /* Smooth scrolling when new messages come in */
+    overflow-y: auto;
 }
 
+/* Message Bubble */
 .message-container {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.message {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    max-width: 80%;
-    word-wrap: break-word;
-}
-
-.ai-message {
-    flex-direction: row;
-    align-self: flex-start;
-}
-
-.user-message {
-    flex-direction: row-reverse;
-    align-self: flex-end;
+    align-items: center;
+    gap: 10px;
 }
 
 .message-avatar {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.2));
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .message-content {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
     padding: 15px;
     border-radius: 20px;
-    font-size: 1.1rem;
-    animation: fadeIn 0.5s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    max-width: 60%;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.ai-message .message-content {
-    background-color: #1e3d58;
-}
-
+/* User Message Style */
 .user-message .message-content {
-    background-color: #4e77a2;
+    background-color: #1e2c35;
+    margin-left: auto;
 }
 
+/* AI Message Style */
+.ai-message .message-content {
+    background-color: #2f4a58;
+    margin-right: auto;
+}
+
+/* Input Section */
 .prompt-area {
+    width: 100%;
     display: flex;
-    gap: 15px;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+    background-color: #2d343b;
     padding: 15px;
-    background-color: #2d3c47;
-    border-radius: 30px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
 }
 
 .prompt-area input {
-    width: 75%;
-    padding: 15px;
-    background-color: #3a4f62;
+    width: 70%;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 10px;
+    border-radius: 30px;
     border: none;
-    border-radius: 25px;
-    color: #fff;
-    font-size: 1.1rem;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
-}
-
-.prompt-area input:focus {
     outline: none;
-    background-color: #4b657d;
+    font-size: 16px;
 }
 
 .prompt-area button {
-    width: 60px;
-    height: 60px;
-    background-color: #4e77a2;
+    background-color: #4c5c68;
     border-radius: 50%;
+    padding: 15px;
     border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
 }
 
 .prompt-area button:hover {
-    background-color: #3a5a7b;
-    transform: scale(1.05);
-}
-
-.prompt-area button img {
-    width: 30px;
-    height: 30px;
-}
-
-@media (max-width: 600px) {
-    .chat-container {
-        height: 90%;
-        padding: 10px;
-    }
-
-    .message-avatar {
-        width: 40px;
-        height: 40px;
-    }
-
-    .message-content {
-        font-size: 1rem;
-    }
-
-    .prompt-area input {
-        width: 65%;
-    }
-
-    .prompt-area button {
-        width: 50px;
-        height: 50px;
-    }
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    background-color: #37424a;
 }
