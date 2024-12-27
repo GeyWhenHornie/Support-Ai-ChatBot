@@ -36,7 +36,7 @@ body {
     overflow-y: auto;
 }
 
-.message-box {
+.message-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -44,41 +44,46 @@ body {
     overflow-y: auto;
 }
 
-.ai-chat-box, .user-chat-box {
+.message {
     display: flex;
-    flex-direction: row;
     align-items: flex-start;
     gap: 15px;
-}
-
-.ai-chat-area, .user-chat-area {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    padding: 15px;
-    border-radius: 20px;
     max-width: 80%;
     word-wrap: break-word;
-    font-size: 1.1rem;
-    animation: fadeIn 0.5s ease;
-    position: relative;
 }
 
-.ai-chat-area {
-    background-color: #1e3d58;
-    margin-left: 20px;
+.ai-message {
+    flex-direction: row;
+    align-self: flex-start;
 }
 
-.user-chat-area {
-    background-color: #4e77a2;
-    margin-right: 20px;
+.user-message {
+    flex-direction: row-reverse;
     align-self: flex-end;
 }
 
-.ai-image, .user-image {
+.message-avatar {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.2));
+}
+
+.message-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.ai-message .message-content {
+    background-color: #1e3d58;
+}
+
+.user-message .message-content {
+    background-color: #4e77a2;
 }
 
 .prompt-area {
@@ -142,9 +147,13 @@ body {
         padding: 10px;
     }
 
-    .ai-chat-box, .user-chat-box {
-        flex-direction: column;
-        align-items: flex-start;
+    .message-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .message-content {
+        font-size: 1rem;
     }
 
     .prompt-area input {
