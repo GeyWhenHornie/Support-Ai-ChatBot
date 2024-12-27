@@ -9,6 +9,13 @@
 <body>
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
+            <!-- Example AI and User Messages (these can be dynamically added through JS) -->
+            <div class="ai-message">
+                <div class="message-container">
+                    <img src="ai.png" alt="AI" class="message-avatar">
+                    <div class="message-content">Wassup dawg?</div>
+                </div>
+            </div>
             <div class="user-message">
                 <div class="message-container">
                     <img src="user.png" alt="User" class="message-avatar">
@@ -27,45 +34,6 @@
             <button id="sendMessage">Send</button>
         </div>
     </div>
-
     <script src="script.js"></script>
-
-    <script>
-        document.getElementById('sendMessage').addEventListener('click', function() {
-            const messageInput = document.getElementById('messageInput');
-            const messageText = messageInput.value;
-
-            if (messageText.trim() !== "") {
-                // Create the new user message
-                const userMessage = document.createElement('div');
-                userMessage.classList.add('user-message');
-
-                const messageContainer = document.createElement('div');
-                messageContainer.classList.add('message-container');
-
-                const userAvatar = document.createElement('img');
-                userAvatar.src = "user.png";  // Change to actual user image source
-                userAvatar.classList.add('message-avatar');
-
-                const messageContent = document.createElement('div');
-                messageContent.classList.add('message-content');
-                messageContent.textContent = messageText;
-
-                messageContainer.appendChild(userAvatar);
-                messageContainer.appendChild(messageContent);
-                userMessage.appendChild(messageContainer);
-
-                // Append the message to the chat
-                const chatBox = document.getElementById('chatBox');
-                chatBox.appendChild(userMessage);
-
-                // Scroll to the bottom
-                chatBox.scrollTop = chatBox.scrollHeight;
-
-                // Clear the input field
-                messageInput.value = '';
-            }
-        });
-    </script>
 </body>
 </html>
