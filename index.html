@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support AI Chat Bot</title>
+    <title>Support Ai Chat Bot</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="chat-container">
-        <!-- Chat messages container -->
-        <div class="chat-box">
-            <div class="message-container">
+        <div class="chat-box" id="chatBox">
                 <!-- AI Chat message -->
            
                 <!-- User Chat message -->
@@ -31,21 +29,22 @@
         </div>
 
         <!-- Input and Send Message area -->
-        <div class="prompt-area">
-            <input type="text" id="prompt" placeholder="Message...">
-            <button id="submit">
-                <img src="submit.svg" alt="">
-            </button>
-        </div>
+<div class="prompt-area">
+        <input type="text" id="prompt" placeholder="Type your message...">
+        <button id="submit">
+            <img src="submit.svg" alt="Submit">
+        </button>
     </div>
-  
+
     <script src="script.js"></script>
+
     <script>
         document.getElementById('submit').addEventListener('click', function() {
             const userMessage = document.getElementById('prompt').value;
-            if (userMessage) {
-                // Append User message
-                const chatBox = document.querySelector('.chat-box');
+
+            if (userMessage.trim() !== '') {
+                // Add user message with bubble
+                const chatBox = document.getElementById('chatBox');
                 const userMessageDiv = document.createElement('div');
                 userMessageDiv.classList.add('message-container', 'user-message');
                 userMessageDiv.innerHTML = `
@@ -53,7 +52,7 @@
                     <div class="message-content">${userMessage}</div>
                 `;
                 chatBox.appendChild(userMessageDiv);
-                
+
                 // Simulate AI response
                 const aiMessageDiv = document.createElement('div');
                 aiMessageDiv.classList.add('message-container', 'ai-message');
@@ -62,8 +61,8 @@
                     <div class="message-content">AI: ${userMessage}</div>
                 `;
                 chatBox.appendChild(aiMessageDiv);
-                
-                // Scroll to the bottom
+
+                // Scroll to the bottom of the chat box
                 chatBox.scrollTop = chatBox.scrollHeight;
 
                 // Clear the input box
