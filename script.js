@@ -69,17 +69,17 @@ function createChatBox(html, classes) {
 
 // Function to handle the user's message and display it
 function handlechatResponse(userMessage) {
+  if (!userMessage.trim()) {
+    return; // Prevent empty messages
+  }
+
   user.message = userMessage;
   let html = `<img src="user.png" alt="" id="userImage" width="8%">
-<div class="user-chat-area">
-${user.message}
-${
-  user.file.data
-    ? `<img src="data:${user.file.mime_type};base64,${user.file.data}" class="chooseimg" />`
-    : ""
-}
-</div>`;
-  prompt.value = "";
+  <div class="user-chat-area">
+    ${user.message}
+    ${user.file.data ? `<img src="data:${user.file.mime_type};base64,${user.file.data}" class="chooseimg" />` : ""}
+  </div>`;
+  prompt.value = ""; // Clear the input field
   let userChatBox = createChatBox(html, "user-chat-box");
   chatContainer.appendChild(userChatBox);
 
@@ -88,23 +88,23 @@ ${
   setTimeout(() => {
     let html = `<img src="ai.png" alt="" id="aiImage" width="10%">
     <div class="ai-chat-area">
-    <img src="loading.webp" alt="" class="load" width="50px">
+      <img src="loading.webp" alt="" class="load" width="50px">
     </div>`;
     let aiChatBox = createChatBox(html, "ai-chat-box");
     chatContainer.appendChild(aiChatBox);
-    generateResponse(aiChatBox);
+    generateResponse(aiChatBox); // Trigger AI response generation
   }, 600);
 }
 
-// Add event listeners for input actions
+// Event listeners for input actions
 prompt.addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
-    handlechatResponse(prompt.value);
+    handlechatResponse(prompt.value); // Handle sending message on Enter
   }
 });
 
 submitbtn.addEventListener("click", () => {
-  handlechatResponse(prompt.value);
+  handlechatResponse(prompt.value); // Handle sending message on "Send" button click
 });
 
 // File upload handling
