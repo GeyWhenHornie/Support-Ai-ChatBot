@@ -6,7 +6,7 @@ let image = document.querySelector("#image img");
 let imageinput = document.querySelector("#image input");
 
 const Api_Url =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAhEeHNhBau8cLzrcvYslhis6VqSGyBhBk";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBntedoYT4UZbmvuT8CAqI4obER2HvVL4A";
 
 let user = {
   message: null,
