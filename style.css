@@ -103,7 +103,7 @@ body {
     50% { opacity: 0.5; }
 }
 
-/* ========== CHAT CONTAINER - ORIGINAL COMPATIBILITY ========== */
+/* ========== CHAT CONTAINER ========== */
 .chat-container {
     flex: 1;
     overflow-y: auto;
@@ -128,7 +128,7 @@ body {
     border-radius: 4px;
 }
 
-/* ========== ORIGINAL CHAT BOXES ========== */
+/* ========== CHAT BOXES ========== */
 .user-chat-box {
     width: 100%;
     display: flex;
@@ -165,7 +165,7 @@ body {
     }
 }
 
-/* ========== ORIGINAL CHAT AREAS ========== */
+/* ========== CHAT AREAS ========== */
 .user-chat-area {
     max-width: 70%;
     padding: 20px;
@@ -177,6 +177,7 @@ body {
     gap: 10px;
     flex-direction: column;
     word-wrap: break-word;
+    line-height: 1.6;
 }
 
 .ai-chat-area {
@@ -188,25 +189,27 @@ body {
     border-radius: 0px 40px 40px 40px;
     box-shadow: var(--shadow);
     word-wrap: break-word;
+    line-height: 1.6;
 }
 
-/* ========== ORIGINAL IMAGE STYLES ========== */
+/* ========== IMAGE STYLES ========== */
 .chooseimg {
-    width: 30%;
-    border-radius: 30px;
+    max-width: 300px;
+    border-radius: 15px;
+    margin-top: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-#userImage {
-    position: absolute;
-    right: 0;
-    filter: drop-shadow(2px 2px 10px #000);
+.choose {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-#aiImage {
-    position: absolute;
-    left: 0;
-    filter: drop-shadow(2px 2px 10px #000);
+#image img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* ========== PROMPT AREA ========== */
@@ -235,6 +238,11 @@ body {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
+/* ========== ATTACHMENT BUTTON ========== */
+.attachment-btn-wrapper {
+    position: relative;
+}
+
 .attachment-btn {
     width: 40px;
     height: 40px;
@@ -255,7 +263,7 @@ body {
     color: var(--primary-color);
 }
 
-/* ========== ORIGINAL INPUT STYLES ========== */
+/* ========== INPUT FIELD ========== */
 #prompt {
     flex: 1;
     background: transparent;
@@ -269,6 +277,32 @@ body {
 
 #prompt::placeholder {
     color: var(--text-secondary);
+}
+
+/* ========== SEND BUTTON ========== */
+#submit {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow);
+}
+
+#submit:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+#submit:active {
+    transform: scale(0.95);
 }
 
 .send-btn {
@@ -287,15 +321,6 @@ body {
     box-shadow: var(--shadow);
 }
 
-.send-btn:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.send-btn:active {
-    transform: scale(0.95);
-}
-
 .input-footer {
     max-width: 1400px;
     margin: 0.75rem auto 0;
@@ -307,7 +332,7 @@ body {
     font-size: 0.8rem;
 }
 
-/* ========== LOADING ========== */
+/* ========== LOADING ANIMATION ========== */
 .load {
     width: 24px;
     height: 24px;
@@ -315,22 +340,11 @@ body {
     border-top-color: var(--primary-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
+    margin: 0 auto;
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
-}
-
-.choose {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-#image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
@@ -352,20 +366,12 @@ body {
     .chat-container {
         padding: 1rem;
         gap: 1rem;
-    }
-
-    .user-chat-box {
-        width: 80%;
-        margin-left: 20%;
-    }
-
-    .ai-chat-box {
-        width: 80%;
+        font-size: 16px;
     }
 
     .user-chat-area,
     .ai-chat-area {
-        max-width: 100%;
+        max-width: 85%;
         padding: 15px;
     }
 
@@ -382,20 +388,10 @@ body {
     }
 }
 
-@media (max-width: 600px) {
-    .user-chat-box {
-        width: 80%;
-        margin-left: 20%;
-    }
-
-    .ai-chat-box {
-        width: 80%;
-    }
-}
-
 @media (max-width: 480px) {
     .user-chat-area,
     .ai-chat-area {
+        max-width: 95%;
         padding: 12px;
     }
 }
