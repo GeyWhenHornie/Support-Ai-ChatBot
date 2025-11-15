@@ -132,7 +132,7 @@ function handlechatResponse(userMessage) {
 
   setTimeout(() => {
     let html = `<img src="ai.png" alt="" id="aiImage" width="10%">
-    <div classs="ai-chat-area">
+    <div class="ai-chat-area">  <!-- FIX #1: Changed "classs" to "class" -->
       <img src="loading.webp" alt="" class="load" width="50px">
     </div>`;
     let aiChatBox = createChatBox(html, "ai-chat-box");
@@ -145,7 +145,7 @@ function handlechatResponse(userMessage) {
 prompt.addEventListener("keydown", (e) => {
   if (e.key == "Enter" && !e.shiftKey) { 
     e.preventDefault(); 
-    handlechatResponse(prompt.Value); 
+    handlechatResponse(prompt.value); // FIX #2: Changed "prompt.Value" to "prompt.value"
   }
 });
 
