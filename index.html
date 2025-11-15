@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Chat Interface</title>
+    <title>Professional AI Chat</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -29,23 +27,22 @@
         </div>
     </div>
 
-    <!-- Chat Container - ORIGINAL STRUCTURE MAINTAINED -->
+    <!-- Chat Container -->
     <div class="chat-container"></div>
 
-    <!-- Prompt Area - ORIGINAL STRUCTURE MAINTAINED -->
+    <!-- Prompt Area -->
     <div class="prompt-area">
         <div class="input-wrapper">
-            <button class="attachment-btn" onclick="document.getElementById('image').click()" title="Attach Image">
-                <i class="fas fa-paperclip"></i>
-            </button>
+            <!-- Image Button (matches your script.js #image selector) -->
+            <div id="image" class="attachment-btn-wrapper">
+                <button class="attachment-btn" title="Attach Image">
+                    <i class="fas fa-paperclip"></i>
+                </button>
+                <input type="file" accept="image/*" style="display: none;">
+                <img src="img.svg" alt="" style="display: none;">
+            </div>
             
-            <input 
-                type="file" 
-                id="image" 
-                accept="image/*" 
-                style="display: none;"
-            />
-            
+            <!-- Input (matches your script.js #prompt selector) -->
             <input 
                 type="text" 
                 id="prompt" 
@@ -53,7 +50,8 @@
                 autocomplete="off"
             />
             
-            <button class="send-btn" onclick="getData()" title="Send Message">
+            <!-- Submit Button (matches your script.js #submit selector) -->
+            <button id="submit" class="send-btn" title="Send Message">
                 <i class="fas fa-paper-plane"></i>
             </button>
         </div>
@@ -62,7 +60,6 @@
         </div>
     </div>
 
-    <!-- ORIGINAL SCRIPT TAG -->
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
