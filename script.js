@@ -19,7 +19,7 @@ const API_KEY = "AIzaSyBntedoYT4UZbmvuT8CAqI4obER2HvVL4A";
 // 2. THIS IS THE CORRECT URL FOR WEB-BASED (CLIENT-SIDE) REQUESTS
 // This URL is different from the server-side one and will fix the CORS/404 error.
 const Api_Url =
-  `https://https-proxy.run.app/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
 
 // --- SECURITY WARNING ---
 // Anyone who visits your website can see this API_KEY.
