@@ -20,7 +20,7 @@ let chatHistory = [];
 // NOTE: I've replaced your hardcoded API key with "".
 // The Canvas environment will automatically provide the necessary key.
 const Api_Url =
-  "https://generativanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
+  "https://generativanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBntedoYT4UZbmvuT8CAqI4obER2HvVL4A";
 
 let user = {
   message: null,
