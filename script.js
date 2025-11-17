@@ -14,7 +14,7 @@ let chatHistory = [];
 // --- API KEY & URL ---
 
 // 1. PASTE YOUR API KEY HERE:
-const API_KEY = "AIzaSyBntedoYT4UZbmvuT8CAqI4obER2HvVL4A"; 
+const API_KEY = "AIzaSyAOOk4AfrpruFoc9Pd6kzKCtdozImeOn-Y"; 
 
 // 2. THIS IS THE CORRECT URL FOR WEB-BASED (CLIENT-SIDE) REQUESTS
 // This URL is different from the server-side one and will fix the CORS/404 error.
